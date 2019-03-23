@@ -13,6 +13,7 @@ $("#search").on("click", function() {
   var endYr = $('#endYr').val();
   var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q="+q+"&begin_date="+startYr+"0101&end_date="+endYr+"1231&api-key=oIDyICAhViKBi7YdzbPSueih3YEvNnIZ";
 
+
   $.ajax({
     url: queryURL,
     method: "GET"
