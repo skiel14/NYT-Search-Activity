@@ -3,10 +3,10 @@ $("#clear").on("click", function() {
   $('#numRecords').val('');
   $('#startYr').val('');
   $('#endYr').val('');
-  $('#resultsDiv').empty();
+  $('#content').empty();
 });
 
-$("#search").on("click", function() {
+$("#submit-button").on("click", function() {
   var term = $('#term').val();
   var num = $('#numRecords').val();
   var startYr = $('#startYr').val();
