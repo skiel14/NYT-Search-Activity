@@ -1,16 +1,16 @@
 $("#clear").on("click", function() {
-  $('#term').val('');
-  $('#numRecords').val('');
-  $('#startYr').val('');
-  $('#endYr').val('');
-  $('#resultsDiv').empty();
+  $('#search-term').val('');
+  $('#number-of-records').val('');
+  $('#start-year').val('');
+  $('#end-year').val('');
+  $('#content').empty();
 });
 
 $("#search").on("click", function() {
-  var term = $('#term').val();
-  var num = $('#numRecords').val();
-  var startYr = $('#startYr').val();
-  var endYr = $('#endYr').val();
+  var q = $('#search-term').val();
+  var num = $('#number-of-records').val();
+  var startYr = $('#start-year').val();
+  var endYr = $('#end-year').val();
   var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q="+q+"&begin_date="+startYr+"0101&end_date="+endYr+"1231&api-key=oIDyICAhViKBi7YdzbPSueih3YEvNnIZ";
 
 
@@ -18,14 +18,29 @@ $("#search").on("click", function() {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    var headline = response.docs.headline.main;
-    var articleURL = resonse.docs.web_url;
-    var firstName = response.docs.byline.person.firstname;
-    var middleName = response.docs.byline.person.middlename;
-    var lastName = response.docs.byline.person.lastname;
-    var author = "By:  "+firstName+" "+middleName+" "+lastName+"";
+    for(var i=1; i<=num; i++) {
+      var headline = response.docs.headline.main;
+      var articleURL = resonse.docs.web_url;
+      var firstName = response.docs.byline.person.firstname;
+      var middleName = response.docs.byline.person.middlename;
+      var lastName = response.docs.byline.person.lastname;
+      var author = "By:  "+firstName+" "+middleName+" "+lastName+"";
 
-    var articleDiv = $("<div>");
+      var articleDiv = $("<div>");
+      articleDiv.addClass("car bg-light mb-3");
+      var articleBody = $("<div>");
+      articleBody.addClass("card-body");
+      var title = $("<h4>");
+      title.addClass("card-title");
+      title.text(""+i+". "+headline);
+      var tagline = $("<p>");
+      tagline.addClass("card-text");
+      tagline.text(author);
+      articleBody.append(title);
+      articleBody.append(tagline);
+      articleDiv.append(articleBody);
+      $("#content").append(articleDiv);
+    }
   });
 
 });
